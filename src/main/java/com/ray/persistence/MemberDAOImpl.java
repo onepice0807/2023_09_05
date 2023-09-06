@@ -26,10 +26,10 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public int updateUserPoint(int howmuch, String userId) throws Exception {
+	public int updateUserPoint(String why, String userId) throws Exception {
 		Map<String, Object> param = new HashMap<String, Object>();
 		
-		param.put("howmuch" , howmuch);
+		param.put("why" , why);
 		param.put("userId" , userId);
 		
 		return ses.update(ns + ".updateUserPoint", param);

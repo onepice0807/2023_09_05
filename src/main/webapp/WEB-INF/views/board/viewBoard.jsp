@@ -22,15 +22,122 @@
 			async : false,
 			success : function(data) {
 				console.log(data);
+				
+				displayAllReplies(data);
+			}, error : function	() {
+				alert("error발생");
 			}
 		});
 	}
+	
+	function displayAllReplies(replies) {
+		let output = "<ul class='list-group'>";
+		if(replies.length > 0) {
+			$.each(replies, function(i, elt) {
+				output += `<li class="list-group-item">`;
+				output += `<div class='replyText'>\${elt.replyText}</div>`;
+				output += `<div class='replyInfo'><span class='replyer'>\${elt.replyer}</span>`;
+				let betweenTime = procPostDate(elt.postDate);
+				output += `<span class='postDate'>\${betweenTime}</span></div>`;
+				output += `<div class='btns'><img src='../resources/images/modify.png' onclick='modiReply(\${elt.replyNo})'>`;
+				output += `<img src='../resources/images/delete.png'  onclick='delReply(\${elt.replyNo})'></div>`;
+				output += "</li>";
+			});	
+		}
+		output += "</ul>"
+		$(".allReplies").html(output);
+		
+	}
+	
+	function procPostDate(data) {
+		let postDate = new Date(data); // 댓글 작성일
+		let now = new Date(); // 현재 날짜시간
+		
+		let diff = (now - postDate) / 1000; // 시간 차(초 단위)
+		
+		let times = [
+			{name : "일", time : 60 * 60 * 24},
+			{name : "시간", time : 60 * 60},
+			{name : "분", time : 60}
+		];
+		
+		for(let val of times) {
+			// 시간차(초 단위)가 기준시간(val.time)으로 나누어보자
+			let betweenTime = Math.floor(diff / val.time);
+			console.log(diff, betweenTime);
+			if(betweenTime > 0) {
+				if(diff > 60*60*24) { // 1일이 지났다
+					return postDate.toLocaleString();
+				}
+				
+				return betweenTime + val.name + "전";
+			}
+		}
+		return "방금전";
+	}
+	
+	function saveReply() {
+		let parentNo = '${board.no}';
+		let replyText = $('#replyText').val();
+		let replyer = 'ray1234';
+		
+		let newReply = {
+				"parentNo" : parentNo,
+				"replyText" : replyText,
+				"replyer" : replyer	
+		};
+		console.log(JSON.stringify(newReply));
+		
+		$.ajax({
+			url : "/reply/", // 데이터를 수신받을 서버 주소
+			type : "POST", // 통신방식(GET, POST, PUT, DELETE)
+			data : JSON.stringify(newReply), // 보낼 데이터
+			headers : {
+				// 송신하는 데이터의 MINE TYPE
+				"Content-Type" : "application/json",
+				
+				// PUT, DELETE, PATCH 등의 REST에서 사용되는 HTTP Methpod가 동작하지 않는 과거의 웹브라우저
+				// 에서 post 방식처럼 동작하도록 한다
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType : "text", // 수신되는 데이터 타입
+			async : false,
+			success : function(data) {
+				console.log(data);
+				if(data == "success") {
+					getAllReplies();
+					$('#replyText').val("");
+				}
+			}, error : function	() {
+				alert("error발생");
+			}
+		});
+	}
+	
 </script>
 <style>
 .content {
 	padding: 20px;
 	border: 1px dashed #333;
 }
+.replyText{
+	padding: 10px;
+	background-color: #FBFBFB;
+}
+.replyInfo{
+	display: flex;
+	justify-content: space-between;
+}
+.btns{
+	float: right;
+	margin-right: 10px; 
+}
+.btns img{
+	width: 23px;
+	margin: 10px;
+}
+
+
 </style>
 </head>
 <body>
@@ -100,7 +207,7 @@
 				<textarea class="form-control" rows="5" id="replyText"></textarea>
 			</div>
 			<div class="replyBtns">
-				<button type="button" class="btn btn-info">댓글달기</button>
+				<button type="button" class="btn btn-info" onclick="saveReply()">댓글달기</button>
 				<button type="button" class="btn btn-danger">취소</button>
 			</div>
 		</div>

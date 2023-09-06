@@ -5,5 +5,5 @@ public interface MemberDAO {
 	public String getDate();
 	
 
-	public int updateUserPoint(int howmuch, String userId) throws Exception;
+	public int updateUserPoint(String why, String userId) throws Exception;
 }

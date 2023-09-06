@@ -58,7 +58,7 @@ public class BoardServiceImpl implements BoardService {
 			}
 			
 			//3) member 테이블에 userpoint update
-			mDao.updateUserPoint(2, newBoard.getWriter());
+			mDao.updateUserPoint("게시물작성", newBoard.getWriter());
 
 			// 4) pointlog 테이블에 insert
 			plDao.insertPointLog(new PointLog(-1, null, "게시물작성", 2, newBoard.getWriter()));

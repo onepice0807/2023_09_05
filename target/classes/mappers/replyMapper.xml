@@ -5,6 +5,10 @@
  
  <mapper namespace="com.ray.mappers.ReplyMapper">
  	<select id="getAllReplies" resultType="com.ray.vodto.Reply">
- 		SELECT * FROM ray.reply where parentNo=#{boardNo};
+ 		SELECT * FROM ray.reply where parentNo=#{boardNo} order by replyNo desc 
  	</select>
+ 	
+ 	<insert id="insertReply">
+ 		insert into reply(parentNo, replyText, replyer) values(#{parentNo}, #{replyText}, #{replyer})
+ 	</insert>
  </mapper>

@@ -10,6 +10,10 @@
 	
 	
 	<update id="updateUserPoint">
+	<selectKey keyProperty="howmuch" resultType="int" order="BEFORE">
+		select howmuch from pointpolicy where why=#{why}
+	</selectKey>
+	
 		update member set userPoint = userPoint + #{howmuch} where userId = #{userId}
 	</update>
 </mapper>

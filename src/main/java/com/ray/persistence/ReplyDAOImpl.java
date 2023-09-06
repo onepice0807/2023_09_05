@@ -23,4 +23,10 @@ public class ReplyDAOImpl implements ReplyDAO {
 		return ses.selectList(ns + ".getAllReplies", boardNo);
 	}
 
+	@Override
+	public int insertReply(Reply reply) throws Exception {
+		// TODO Auto-generated method stub
+		return ses.insert(ns + ".insertReply", reply);
+	}
+
 }

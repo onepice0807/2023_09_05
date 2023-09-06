@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,6 +39,26 @@ public class ReplyController {
 			result = new ResponseEntity<>(HttpStatus.CONFLICT);
 		}
 		
+		return result;
+	}
+	
+	// @RequestBody : view단에서 보낸 json을 자바 객체로 변환
+	@RequestMapping(value="", method = RequestMethod.POST)
+	public ResponseEntity<String> saveReply(@RequestBody Reply newReply) {
+		System.out.println(newReply.toString() + "댓글저장");
+		ResponseEntity<String> result = null;
+		
+		try {
+			if(rService.saveReply(newReply)) {
+				result = new ResponseEntity<String>("success", HttpStatus.OK);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+			result = new ResponseEntity<String>("fail", HttpStatus.FORBIDDEN);
+			
+		}
 		return result;
 	}
 }
