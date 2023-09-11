@@ -22,6 +22,46 @@
 		<beans:property name="maxUploadSize" value="5242880"></beans:property>
 	</beans:bean>
 	
+	
+		<!-- 인터셉터 객체 등록 -->
+	<beans:bean id="testInterceptor"
+		class="com.ray.interceptor.Testinterceptor">
+	</beans:bean>
+	
+			<!-- 인터셉터 객체 등록 -->
+	<beans:bean id="loginInterceptor"
+		class="com.ray.interceptor.loginInterceptor">
+	</beans:bean>
+	
+				<!-- 인터셉터 객체 등록 -->
+	<beans:bean id="AutrnticationInterceptor"
+		class="com.ray.interceptor.AutrnticationInterceptor">
+	</beans:bean>
+	
+	<interceptors>
+		<interceptor>
+			<mapping path="/doInterceptorA"/> <!-- /doInterceptorA uri가 매핑되면 -->
+			<beans:ref bean="testInterceptor"/> <!-- testInterceptor 객체가 동작되도록 -->
+		</interceptor>
+		
+		
+		<interceptor>
+		<mapping path="/member/login"/> <!-- /member/login uri가 매핑되면 -->
+			<beans:ref bean="loginInterceptor"/> <!-- loginInterceptor 객체가 동작되도록 -->
+		</interceptor>
+		
+				<interceptor>
+		<mapping path="/board/writeBoard"/> <!-- /board/writeBoard uri가 매핑되면 -->
+		<mapping path="/board/modifyBoard"/> <!-- /board/modifyBoard uri가 매핑되면 (수정) -->
+		<mapping path="/board/remBoardBoard"/> <!-- /board/remBoardBoard uri가 매핑되면 (삭제)-->
+		<!-- mypage -->
+		<!-- 구매 -->
+		<!-- 관리자페이지 -->
+			<beans:ref bean="AutrnticationInterceptor"/> <!-- AutrnticationInterceptor 객체가 동작되도록 -->
+		</interceptor>
+	</interceptors>
+	
+	
 
 
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
@@ -38,5 +78,5 @@
 	
 	
 	
-	
+
 </beans:beans>

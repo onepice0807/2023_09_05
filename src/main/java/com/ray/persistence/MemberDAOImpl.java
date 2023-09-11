@@ -8,6 +8,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.ray.vodto.Member;
+import com.ray.vodto.MemberDTO;
+
 @Repository   // 아래의 클래스가 DAO객체임을 명시
 public class MemberDAOImpl implements MemberDAO {
 
@@ -33,6 +36,12 @@ public class MemberDAOImpl implements MemberDAO {
 		param.put("userId" , userId);
 		
 		return ses.update(ns + ".updateUserPoint", param);
+	}
+
+	@Override
+	public Member login(MemberDTO tmpLogin) throws Exception {
+		
+		return ses.selectOne(ns + ".login", tmpLogin);
 	}
 
 	

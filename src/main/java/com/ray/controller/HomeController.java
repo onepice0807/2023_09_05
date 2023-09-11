@@ -36,4 +36,9 @@ public class HomeController {
 		return "index";
 	}
 	
+	@RequestMapping(value="/doInterceptorA")
+	public void doInterceptorA() {
+		logger.info("doInterceptorA() 컨트롤러가 호출");
+	}
+	
 }

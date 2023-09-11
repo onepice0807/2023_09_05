@@ -190,4 +190,10 @@ public class BoardController {
 		
 		return "redirect:" + redirectPage;
 	}
+	@RequestMapping("modifyBoard")
+	public void modifyBoard(@RequestParam("no") int boardNo) {
+		System.out.println(boardNo + "번을 수정하자");
+	}
+	
+	
 }
