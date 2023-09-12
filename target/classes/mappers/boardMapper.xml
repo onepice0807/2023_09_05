@@ -52,4 +52,9 @@
  	<select id="getUploadedFiles" resultType="com.ray.vodto.UploadedFile">
  		SELECT * FROM ray.uploadedfile where boardNo = #{no}
  	</select>
+ 	
+ 	<select id="getWriterByNo" resultType="String">
+ 	select writer from board where no=#{no}
+ 	</select>
+ 	
  </mapper>

@@ -53,7 +53,7 @@
 				<interceptor>
 		<mapping path="/board/writeBoard"/> <!-- /board/writeBoard uri가 매핑되면 -->
 		<mapping path="/board/modifyBoard"/> <!-- /board/modifyBoard uri가 매핑되면 (수정) -->
-		<mapping path="/board/remBoardBoard"/> <!-- /board/remBoardBoard uri가 매핑되면 (삭제)-->
+		<mapping path="/board/remBoard"/> <!-- /board/remBoardBoard uri가 매핑되면 (삭제)-->
 		<!-- mypage -->
 		<!-- 구매 -->
 		<!-- 관리자페이지 -->

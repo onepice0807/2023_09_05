@@ -15,4 +15,7 @@ public interface BoardService {
 
 	// 게시글 상세조회
 	Map<String, Object> getBoardByNo(int no, String ipAddr) throws Exception;
+	
+	// 글번호로 작성자
+	String getBoardWriterByNo(int no) throws Exception;
 }

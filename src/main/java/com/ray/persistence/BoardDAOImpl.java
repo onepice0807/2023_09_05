@@ -99,6 +99,12 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		return ses.selectList(ns + ".getUploadedFiles", no);
 	}
+
+	@Override
+	public String getWriterByNo(int no) throws Exception {
+		
+		return ses.selectOne(ns + ".getWriterByNo", no);
+	}
 	
 	
 	

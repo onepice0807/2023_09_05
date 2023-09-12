@@ -79,7 +79,7 @@
 	function saveReply() {
 		let parentNo = '${board.no}';
 		let replyText = $('#replyText').val();
-		let replyer = 'ray1234';
+		let replyer = '${sessionScope.loginMember.userId}';
 		
 		let newReply = {
 				"parentNo" : parentNo,
@@ -87,31 +87,36 @@
 				"replyer" : replyer	
 		};
 		console.log(JSON.stringify(newReply));
-		
-		$.ajax({
-			url : "/reply/", // 데이터를 수신받을 서버 주소
-			type : "POST", // 통신방식(GET, POST, PUT, DELETE)
-			data : JSON.stringify(newReply), // 보낼 데이터
-			headers : {
-				// 송신하는 데이터의 MINE TYPE
-				"Content-Type" : "application/json",
-				
-				// PUT, DELETE, PATCH 등의 REST에서 사용되는 HTTP Methpod가 동작하지 않는 과거의 웹브라우저
-				// 에서 post 방식처럼 동작하도록 한다
-				"X-HTTP-Method-Override" : "POST"
-			},
-			dataType : "text", // 수신되는 데이터 타입
-			async : false,
-			success : function(data) {
-				console.log(data);
-				if(data == "success") {
-					getAllReplies();
-					$('#replyText').val("");
+		if(replyer === '') {
+			location.href="/member/login?redirectUrl=viewBoard&no=" + parentNo;
+		}else {
+			$.ajax({
+				url : "/reply/", // 데이터를 수신받을 서버 주소
+				type : "POST", // 통신방식(GET, POST, PUT, DELETE)
+				data : JSON.stringify(newReply), // 보낼 데이터
+				headers : {
+					// 송신하는 데이터의 MINE TYPE
+					"Content-Type" : "application/json",
+					
+					// PUT, DELETE, PATCH 등의 REST에서 사용되는 HTTP Methpod가 동작하지 않는 과거의 웹브라우저
+					// 에서 post 방식처럼 동작하도록 한다
+					"X-HTTP-Method-Override" : "POST"
+				},
+				dataType : "text", // 수신되는 데이터 타입
+				async : false,
+				success : function(data) {
+					console.log(data);
+					if(data == "success") {
+						getAllReplies();
+						$('#replyText').val("");
+					}
+				}, error : function	() {
+					alert("error발생");
 				}
-			}, error : function	() {
-				alert("error발생");
-			}
-		});
+			});
+		}
+		
+		
 	}
 	
 </script>
@@ -141,6 +146,14 @@
 </style>
 </head>
 <body>
+
+	<c:if test="${param.status == 'notPermission'}">
+		<script>
+		window.alert('권한이 없어요');
+		</script>
+	
+	</c:if>
+
 	<jsp:include page="../header.jsp"></jsp:include>
 	<div class="container">
 		<h1>게시판 상세 글 조회</h1>
@@ -194,8 +207,8 @@
 
 
 		<div class="mb-3" style="margin-top: 20px">
-			<button type="button" class="btn btn-secondary">수정</button>
-			<button type="button" class="btn btn-warning">삭제</button>
+			<button type="button" class="btn btn-secondary" onclick="location.href='modifyBoard?no=${board.no}';">수정</button>
+			<button type="button" class="btn btn-warning" onclick="location.href='remBoard?no=${board.no}';">삭제</button>
 			<button type="button" class="btn btn-info"
 				onclick="location.href='listAll';">리스트페이지로</button>
 		</div>

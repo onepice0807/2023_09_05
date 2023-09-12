@@ -30,4 +30,6 @@ public interface BoardDAO {
 	
 	// no번 글의 첨부 파일 가져오기
 	List<UploadedFile> selectUploadedFile(int no) throws Exception;
+	
+	String getWriterByNo(int no) throws Exception;
 }

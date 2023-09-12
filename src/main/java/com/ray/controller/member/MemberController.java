@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ray.etc.SessionCheck;
 import com.ray.service.member.MemberService;
 import com.ray.vodto.Member;
 import com.ray.vodto.MemberDTO;
@@ -44,15 +45,18 @@ public class MemberController {
 			logger.info("로그인 실패 :");
 			return;
 		}
+		
+		// loginInterceptor의 postHandle()이 동작
+		
 	}
 
 	@RequestMapping("logout")
 	public String logout(HttpServletRequest req) {
 		HttpSession ses = req.getSession();
-
-		ses.removeAttribute("loginMember");
-		ses.removeAttribute("returnPath");
-		ses.invalidate();
+			
+		
+		// 로그 아웃 시에 세션리스트에 담겨진 세션 제거
+		SessionCheck.removeKey(((Member)ses.getAttribute("loginMember")).getUserId());
 
 		return "redirect:/";
 	}

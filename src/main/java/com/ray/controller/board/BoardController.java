@@ -193,6 +193,17 @@ public class BoardController {
 	@RequestMapping("modifyBoard")
 	public void modifyBoard(@RequestParam("no") int boardNo) {
 		System.out.println(boardNo + "번을 수정하자");
+		
+		
+		// 서비스 -> dao =?boardNo번글을 가져와서 바인딩
+	}
+	
+	@RequestMapping("remBoard")
+	public void removeBoard(@RequestParam("no") int boardNo) {
+		System.out.println(boardNo + "번을 삭제하자");
+		
+		
+		// 서비스 -> dao =?boardNo번글을 가져와서 바인딩
 	}
 	
 	

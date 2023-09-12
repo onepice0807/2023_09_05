@@ -106,5 +106,11 @@ public class BoardServiceImpl implements BoardService {
 
 		return result;
 	}
+
+	@Override
+	public String getBoardWriterByNo(int no) throws Exception {
+		// TODO Auto-generated method stub
+		return bDao.getWriterByNo(no);
+	}
 	
 }
