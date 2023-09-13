@@ -2,25 +2,22 @@ package com.ray.vodto;
 
 import java.sql.Timestamp;
 
+import org.springframework.stereotype.Service;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.ToString;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Member {
+public class SessionDTO {
+	@NonNull
 	private String userId;
-	private String userPwd;
-	private String userEmail;
-	private Timestamp registerDate;
-	private String newFileName;
-	private int userPoint;
-	private String isAdmin;
+	
 	private Timestamp sessionLimit;
 	private String sessionKey;
 }

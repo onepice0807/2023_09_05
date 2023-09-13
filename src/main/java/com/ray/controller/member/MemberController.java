@@ -56,7 +56,11 @@ public class MemberController {
 			
 		
 		// 로그 아웃 시에 세션리스트에 담겨진 세션 제거
-		SessionCheck.removeKey(((Member)ses.getAttribute("loginMember")).getUserId());
+		if((Member)ses.getAttribute("loginMember") != null) {
+			System.out.println();
+			SessionCheck.removeKey(((Member)ses.getAttribute("loginMember")).getUserId());
+		}
+		
 
 		return "redirect:/";
 	}

@@ -10,6 +10,7 @@ import com.ray.persistence.PointLogDAO;
 import com.ray.vodto.Member;
 import com.ray.vodto.MemberDTO;
 import com.ray.vodto.PointLog;
+import com.ray.vodto.SessionDTO;
 
 @Service
 public class MemberServiceimple implements MemberService {
@@ -33,6 +34,23 @@ public class MemberServiceimple implements MemberService {
 		}
 		
 		return loginMember;
+	}
+
+	@Override
+	public boolean remeber(SessionDTO sesDto) throws Exception {
+		boolean result = false;
+		
+		if(mdao.insertSession(sesDto) == 1) {
+			result = true;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public Member checkAutoLoginUser(String sessionKey) throws Exception {
+		
+		return mdao.selectAutoLoginUser(sessionKey);
 	}
 
 }

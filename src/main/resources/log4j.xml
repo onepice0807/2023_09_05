@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.webshjin.controller">
+	<logger name="com.ray.controller">
 		<level value="info" />
 	</logger>
 	

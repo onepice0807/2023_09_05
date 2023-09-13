@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ray.vodto.Member;
 import com.ray.vodto.MemberDTO;
+import com.ray.vodto.SessionDTO;
 
 @Repository   // 아래의 클래스가 DAO객체임을 명시
 public class MemberDAOImpl implements MemberDAO {
@@ -42,6 +43,18 @@ public class MemberDAOImpl implements MemberDAO {
 	public Member login(MemberDTO tmpLogin) throws Exception {
 		
 		return ses.selectOne(ns + ".login", tmpLogin);
+	}
+
+	@Override
+	public int insertSession(SessionDTO sesDTO) throws Exception {
+		// TODO Auto-generated method stub
+		return ses.update(ns + ".insertSessionKey", sesDTO);
+	}
+
+	@Override
+	public Member selectAutoLoginUser(String sessionKey) throws Exception {
+		// TODO Auto-generated method stub
+		return ses.selectOne(ns + ".selectAuto", sessionKey);
 	}
 
 	

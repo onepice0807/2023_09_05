@@ -23,4 +23,13 @@
 		on m.userImg = u.no
 		where userid=#{userId} and userpwd= sha1(md5(#{userPwd}));
 	</select>
+	
+	
+	<update id="insertSessionKey">
+	update member set sessionLimit = #{sessionLimit}, sessionKey = #{sessionKey} where userId = #{userId}
+	</update>
+	
+	<select id="selectAuto" resultType="com.ray.vodto.Member">
+	select * from member where sessionKey = #{sessionKey} and sessionLimit > now()
+	</select>
 </mapper>

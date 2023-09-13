@@ -55,7 +55,7 @@
 								<c:choose>
 									<c:when test="${board.isDelete == 'N' }">
 										<tr id=`board${board.no }` class="board"
-											onclick='location.href="viewBoard?no=${board.no}";'>
+											onclick='location.href="viewBoard?no=${board.no}&redirectUrl=viewBoard";'>
 											<td>${board.no }</td>
 
 											<td><c:if test="${board.step > 0 }">
